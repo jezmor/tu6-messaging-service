@@ -11,13 +11,13 @@ jobs:
     steps:
       - name: rm old zip files
         run: |
-          cd ./terraform
+          cd ./tu6-messaging-service/terraform
           rm sendtext_lambda_layers.zip
           rm sendtext_lambda_function.zip
       - name: Zip Python Layers Module Library
         run: |
-          cd ./lambda
-          zip ../terraform/sendtext_lambda_layers.zip ./python -r
+          cd ./tu6-messaging-service/lambda
+          zip ./tu6-messaging-service/terraform/sendtext_lambda_layers.zip ./python -r
       - name: Zip Python Function
         run: |
           cd ./lambda
