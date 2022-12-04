@@ -7,9 +7,9 @@ This project simplifies text messaging from web apps!
 
 ## Getting Setup
 1. Configure Twilio
-- Create an account with [Twilio](https://www.twilio.com/try-twilio).
+- [Create an account with Twilio](https://www.twilio.com/try-twilio).
 - Buy a phone number
-- Save your ACCOUNT_SID and ACCOUNT_AUTH_TOKEN in [AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html) in US-EAST-1 as "twilio_credentials"
+- [Save your ACCOUNT_SID and ACCOUNT_AUTH_TOKEN in AWS SecretsManager](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create_secret.html) in US-EAST-1 as *"twilio_credentials"*
 2. [Configure the AWS CLI](https://aws.amazon.com/cli/)
 3. Create an S3 Bucket to Host your .tfstate file
 4. Modify the Terraform Backend Command with your S3 state file location
