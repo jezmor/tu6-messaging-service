@@ -58,25 +58,3 @@ provider "registry.terraform.io/hashicorp/null" {
     "zh:fca01a623d90d0cad0843102f9b8b9fe0d3ff8244593bd817f126582b52dd694",
   ]
 }
-
-provider "registry.terraform.io/twilio/twilio" {
-  version     = "0.18.11"
-  constraints = "~> 0.18.2"
-  hashes = [
-    "h1:L9XBY+VcALIWVHEnsuLt+J3lBzZZSvPJxH/QyjauYjg=",
-    "zh:02e42e04b66e25fcfde60d77ee8a4a1dbe2ec98d1127cc25912e78d528def3fa",
-    "zh:2ed7e7fec7f5954962bdde988552835e82156cf67a71d6e16d4ce3f16198a591",
-    "zh:425bcbbfcc64e3a70e589bf632db27a5621e451b4432fc246e681a5e2dd90df4",
-    "zh:4e73838ac504ae42a5fe11e070c8a3e555e1518e65d2109ff5fcc915b8f86eab",
-    "zh:61f2b44585b391cf1937a3ddeaa3df0686871c32f00c6b465fea95ea2f346cf2",
-    "zh:7e8fd89732008037ff4cc1f6e49095e249619bceae4cf93a639959fdeb5d4af7",
-    "zh:9acabff88374acf34d1a18e4cb8d01c97e0174c0474a1dde6948efeb7eebaa1f",
-    "zh:9ba4c81cd635ef8cc4eb1cc7f374b8dfb3efc61892de9cb0e434bec62ac2400d",
-    "zh:a09ce7984402a4c82832265145f00221d076f21fbc98548b5df060b3a3203f4f",
-    "zh:bc21eaf7acd722b0ff85d84901791bab07cbc604aa1c179d36e2edd4a553d60f",
-    "zh:c564bc40be76c52c69fb3c0ba21510826ee1aa934f232c4ada457eb4b015d649",
-    "zh:d01c130310cda2a1cec213433bc18bee5e2cd7ba6ab2125fb0b816516d2d9a47",
-    "zh:ee70f450a55e7a19e7ee9937d6df93bb0792c7f7cf00d5a3402c43b7a44edffd",
-    "zh:f088dde4f83a5260f8709a6519da3184d2e84316e0c316cc8855c0dcd7d7265a",
-  ]
-}
