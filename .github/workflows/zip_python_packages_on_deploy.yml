@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: montudor/action-zip@v1
         with:
-          args: zip -qq -r sendtext_lambda_layers.zip /lambda/python
+          args: rm /terraform/sendtext_lambda_layers.zip; zip -qq -r sendtext_lambda_layers1.zip /lambda/python
       - name: rm old zip files
         run: |
           cd ./tu6-messaging-service/terraform
