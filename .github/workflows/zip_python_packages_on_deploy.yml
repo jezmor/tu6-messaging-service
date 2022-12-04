@@ -1,0 +1,25 @@
+name: zip_python_packages_on_deploy
+
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  zip-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: rm old zip files
+        run: |
+          cd ./terraform
+          rm sendtext_lambda_layers.zip
+          rm sendtext_lambda_function.zip
+      - name: Zip Python Layers Module Library
+        run: |
+          cd ./lambda
+          zip ../terraform/sendtext_lambda_layers.zip ./python -r
+      - name: Zip Python Function
+        run: |
+          cd ./lambda
+          zip ../terraform/sendtest_lambda_function.zip lambda_function.py
+      
