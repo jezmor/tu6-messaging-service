@@ -124,8 +124,8 @@ resource "aws_sqs_queue" "sqs-text-messages" {
 
 resource "aws_lambda_function" "lambda_sendtext" {
   function_name    = "sendtext"
-  filename         = "lambda_function.zip"
-  source_code_hash = filebase64sha256("lambda_function.zip")
+  filename         = "sendtext_lambda_function.zip"
+  source_code_hash = filebase64sha256("sendtext_lambda_function.zip")
   role             = aws_iam_role.lambda_execution_role_sendtxt.arn
   handler          = "lambda_function.lambda_handler"
   runtime          = "python3.7"
