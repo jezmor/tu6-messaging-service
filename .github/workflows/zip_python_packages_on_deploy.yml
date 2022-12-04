@@ -9,20 +9,21 @@ jobs:
   zip-files:
     runs-on: ubuntu-latest
     steps:
-      - uses: montudor/action-zip@v1
+      - name: Remove sendtext_lambda_layers.zip
+        uses: JesseTG/rm@v1.0.3
         with:
-          args: rm /terraform/sendtext_lambda_layers.zip; zip -qq -r sendtext_lambda_layers1.zip /lambda/python
-      - name: rm old zip files
-        run: |
-          cd ./tu6-messaging-service/terraform
-          rm sendtext_lambda_layers.zip
-          rm sendtext_lambda_function.zip
-      - name: Zip Python Layers Module Library
-        run: |
-          cd ./tu6-messaging-service/lambda
-          zip ./tu6-messaging-service/terraform/sendtext_lambda_layers.zip ./python -r
-      - name: Zip Python Function
-        run: |
-          cd ./lambda
-          zip ../terraform/sendtest_lambda_function.zip lambda_function.py
-      
+          path: /terraform/sendtext_lambda_layers.zip
+      - name: Remove sendtext_lambda_function.zip
+        uses: JesseTG/rm@v1.0.3
+        with:
+          path: /terraform/sendtext_lambda_function.zip
+          
+      - name: Install zip
+        uses: montudor/action-zip@v1
+
+      - name: Zip output sendtext_lambda_layers.zip
+        run: zip -qq -r ../terraform/sendtext_lambda_layers.zip ./python
+        working-directory: /lambda/
+      - name: sendtext_lambda_function.zip
+        run: zip -qq -r ../terraform/sendtext_lambda_function.zip ./lambda_function.py
+        working-directory: /lambda/
