@@ -5,6 +5,9 @@ Serverless Text Messaging
 
 This project simplifies text messaging from web apps!
 
+## Advantages of this Implementation
+You might be asking yourself, what's different between this and just sending a call to Twilio? The answer is simple! I didn't build the one Twilio uses... that could be a good or bad thing depending on who you ask. This is a hassle free template to send messages through Twilio from your AWS Account(s) and centralizes your messaging into one core configuration. It can be easily and quickly deployed into multiple regions, environments, accounts, etc.
+
 ## Getting Setup
 1. Configure Twilio
 - [Create an account with Twilio](https://www.twilio.com/try-twilio).
