@@ -7,6 +7,7 @@ resource "aws_budgets_budget" "textMailingListService" {
   time_period_start = "2022-12-03_00:01"
 }
 
+#IAM Roles
 resource "aws_iam_role" "lambda_execution_role_sendtxt" {
   name = "lamdarole-sendtext"
 
@@ -24,24 +25,7 @@ resource "aws_iam_role" "lambda_execution_role_sendtxt" {
   })
 }
 
-resource "aws_iam_policy_attachment" "attach_cw_policies_lambda_sendtext_role" {
-  name       = "attach-cloudwatch-policy"
-  policy_arn = aws_iam_policy.lambda_sendText_cloudwatch_policy.arn
-  roles      = [aws_iam_role.lambda_execution_role_sendtxt.name]
-}
-
-resource "aws_iam_policy_attachment" "attach_sqs_policies_lambda_sendtext_role" {
-  name       = "attach-sqs-policy"
-  policy_arn = aws_iam_policy.lambda_sendText_sqs_policy.arn
-  roles      = [aws_iam_role.lambda_execution_role_sendtxt.name]
-}
-
-resource "aws_iam_policy_attachment" "attach_sm_policies_lambda_sendtext_role" {
-  name       = "attach-sm-policy"
-  policy_arn = aws_iam_policy.lambda_twilio_credentials_policy.arn
-  roles      = [aws_iam_role.lambda_execution_role_sendtxt.name]
-}
-
+#IAM Policies
 resource "aws_iam_policy" "lambda_sendText_cloudwatch_policy" {
   name        = "lambda_send_text_cloudwatch"
   path        = "/text-message-service/lambda/policies/"
@@ -112,6 +96,26 @@ resource "aws_iam_policy" "lambda_sendText_sqs_policy" {
   })
 }
 
+#IAM Policy Attachments
+resource "aws_iam_policy_attachment" "attach_cw_policies_lambda_sendtext_role" {
+  name       = "attach-cloudwatch-policy"
+  policy_arn = aws_iam_policy.lambda_sendText_cloudwatch_policy.arn
+  roles      = [aws_iam_role.lambda_execution_role_sendtxt.name]
+}
+
+resource "aws_iam_policy_attachment" "attach_sm_policies_lambda_sendtext_role" {
+  name       = "attach-sm-policy"
+  policy_arn = aws_iam_policy.lambda_twilio_credentials_policy.arn
+  roles      = [aws_iam_role.lambda_execution_role_sendtxt.name]
+}
+
+resource "aws_iam_policy_attachment" "attach_sqs_policies_lambda_sendtext_role" {
+  name       = "attach-sqs-policy"
+  policy_arn = aws_iam_policy.lambda_sendText_sqs_policy.arn
+  roles      = [aws_iam_role.lambda_execution_role_sendtxt.name]
+}
+
+#Service Resources
 resource "aws_sqs_queue" "sqs-text-messages" {
   name                       = "text-messages"
   delay_seconds              = 90
