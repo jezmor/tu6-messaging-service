@@ -17,7 +17,7 @@ You might be asking yourself, what's different between this and just sending a c
 3. Create an S3 Bucket to Host your .tfstate file
 4. Modify the Terraform Backend Command with your S3 state file location
 5. Run `terraform init` and `terraform apply` insert the phone number you just created in TWILIO_NUMBER variable!
-- Alternatively you can use `terraform apply -var TWILIO_NUMBER="+19999999999`<- Replace with your Twilio Number.
+- Alternatively you can use `terraform apply -var TWILIO_NUMBER="+19999999999"`<- Replace with your Twilio Number.
 
 ## Using the Service
 In order to send/receive messages you'll have to send messages into the text-messages sqs queue. The expected format is

@@ -5,9 +5,12 @@ import logging
 from twilio.rest import Client
 from botocore.exceptions import ClientError
 
-#https://aws.amazon.com/blogs/mt/get-notified-specific-lambda-function-error-patterns-using-cloudwatch/
-logging.basicConfig(level=logging.ERROR)
-logger=logging.getLogger(__name__)
+root = logging.getLogger()
+if root.handlers:
+    for handler in root.handlers:
+        root.removeHandler(handler)
+logging.basicConfig(format='%(asctime)s %(message)s', level=logging.INFO)
+
 
 def get_twilio_credentials():
     secret_name = "twilio_credentials"
@@ -21,17 +24,17 @@ def get_twilio_credentials():
     )
 
     try:
-        logger.debug("Getting secret values from SecretsManager...")
+        logging.debug("Getting secret values from SecretsManager...")
         secret_values = client.get_secret_value(
             SecretId=secret_name
         )
     except ClientError as e:
         # For a list of exceptions thrown, see
         # https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_GetSecretValue.html
-        logger.critical("Failed to retrieve secret values from SecretsManager.")
+        logging.critical("Failed to retrieve secret values from SecretsManager.")
         raise e
 
-    logger.debug("Successfully retrieved secret values from SecretsManager.")
+    logging.debug("Successfully retrieved secret values from SecretsManager.")
     return json.loads(secret_values['SecretString'])
 
 def twilio_send_message(to,msg):
@@ -45,7 +48,7 @@ def twilio_send_message(to,msg):
     client = Client(account_sid, auth_token)
 
     try:
-        logger.debug(f"Sending Twilio message from {account_sid} to {twilio_number}.\nMessage Content:\n{msg}")
+        logging.debug(f"Sending Twilio message from {account_sid} to {twilio_number}.\nMessage Content:\n{msg}")
         message = client.messages \
             .create(
                 body=msg,
@@ -53,7 +56,7 @@ def twilio_send_message(to,msg):
                 to=to
             )
     except ClientError as e:
-        logger.critical(f"Failed to send Twilio text message from {account_sid} to {twilio_number}.\nMessage Content:\n{msg}\nFailure Reason:\n{e}")
+        logging.critical(f"Failed to send Twilio text message from {account_sid} to {twilio_number}.\nMessage Content:\n{msg}\nFailure Reason:\n{e}")
         raise e
 
     return message
@@ -62,10 +65,10 @@ def twilio_send_message(to,msg):
 def lambda_handler(event, context):
     for message in event['Records']:
         try:
-            logger.debug("Gathering SQS message body...")
+            logging.debug("Gathering SQS message body...")
             item = json.loads(message['body'])
         except ValueError as e:
-            logger.critical(f"Unable to parse SQS message body, improper JSON.\nSQS Message Body: \n{message['body']}")
+            logging.critical(f"Unable to parse SQS message body, improper JSON.\nSQS Message Body: \n{message['body']}")
             raise e
 
         to = item['to']
@@ -80,5 +83,5 @@ def lambda_handler(event, context):
                     'body': f"SUCCESS! account_sid={twl.account_sid} sid={twl.sid}"
                 }
         except Exception as e:
-            logger.critical(f"TWILIO ERROR: {e}")
+            logging.critical(f"TWILIO ERROR: {e}")
             raise e

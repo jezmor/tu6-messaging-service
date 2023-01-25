@@ -135,7 +135,7 @@ resource "aws_lambda_function" "lambda_sendtext" {
   runtime          = "python3.7"
   timeout          = 180
   layers           = [aws_lambda_layer_version.sendtext_lambda_layer.arn]
-  depends_on       = [null_resource.copy_lambda_function_into_zip]
+  depends_on       = [data.archive_file.zip_lambda_function]
 
   environment {
     variables = {
@@ -150,7 +150,7 @@ resource "aws_lambda_layer_version" "sendtext_lambda_layer" {
   compatible_runtimes      = ["python3.7"]
   compatible_architectures = ["x86_64"]
 
-  depends_on = [null_resource.copy_lambda_layers_into_zip]
+  depends_on = [data.archive_file.zip_lambda_layers]
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_trigger_sendtext" {
