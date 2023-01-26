@@ -9,15 +9,14 @@ data "aws_secretsmanager_secret_version" "twilio_credentials_current" {
   secret_id = data.aws_secretsmanager_secret.twilio_credentials.id
 }
 
-
-resource "null_resource" "copy_lambda_function_into_zip" {
-  provisioner "local-exec" {
-    command = "zip lambda_function.zip ../lambda/lambda_function.py -j"
-  }
+data "archive_file" "zip_lambda_function" {
+  type = "zip"
+  source_file = "../lambda/lambda_function.py"
+  output_path = "sendtext_lambda_function.zip"
 }
 
-resource "null_resource" "copy_lambda_layers_into_zip" {
-  provisioner "local-exec" {
-    command = "cd ../lambda && zip ../terraform/sendtext_lambda_layers.zip ./python -r; cd ../terraform"
-  }
+data "archive_file" "zip_lambda_layers" {
+  type = "zip"
+  source_dir = "../lambda/python/"
+  output_path = "sendtext_lambda_layers.zip"
 }

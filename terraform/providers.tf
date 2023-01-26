@@ -18,7 +18,7 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "tu6"
-    key    = "assets/prod/terraform/terraform.tfstate"
+    key    = "assets/prod/messaging-service/terraform/terraform.tfstate"
     region = "us-east-1"
   }
 }
